@@ -1,0 +1,5 @@
+[cicd_workers]
+ubuntu-worker
+
+[web_workers]
+ubuntu-worker

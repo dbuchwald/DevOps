@@ -1,0 +1,8 @@
+---
+# Will restart UFW if the configuration changed
+
+- name: Restart UFW
+  become: yes
+  service:
+    name: ufw
+    state: restarted

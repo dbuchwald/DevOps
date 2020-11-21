@@ -1,0 +1,17 @@
+---
+# This playbook contains common configuration for all nodes
+
+- name: Configure UFW to block all traffic (exceptions below)
+  become: yes
+  ufw:
+    state: enabled
+    policy: deny
+
+- name: Enable only limited traffic to OpenSSH, and only on single interface
+  become: yes
+  ufw:
+    rule: limit
+    name: OpenSSH
+    interface: enp0s8
+    direction: in
+

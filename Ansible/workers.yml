@@ -1,0 +1,9 @@
+---
+# This playbook deploys complete CI/CD pipeline, web server and Apache Kafka for simple tests
+
+- name: Common configuration across nodes
+  hosts: all
+
+  roles:
+   - common
+
