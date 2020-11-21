@@ -7,3 +7,10 @@
   roles:
    - common
 
+- name: CI/CD worker node configuration
+  hosts: cicd_workers
+
+  roles:
+   - jenkins
+
+

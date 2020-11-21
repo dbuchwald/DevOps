@@ -1,0 +1,46 @@
+---
+# This playbook contains configuration for CI/CD nodes
+
+- name: Ensure JDK11 package is not installed
+  become: yes
+  apt:
+    name: '{{ item }}'
+    state: absent
+    autoremove: yes
+  loop:
+    - default-jre
+    - default-jdk
+    - default-jre-headless
+    - default-jdk-headless
+    - openjdk-11-jre-headless
+    - openjdk-11-jdk-headless
+
+- name: Install basic development tools (required for Jenkins builds)
+  become: yes
+  apt:
+    name: '{{ item }}' 
+    state: present
+  loop:
+    - git
+    - openjdk-8-jdk-headless
+    - maven
+
+- name: Add jenkins.io Apt Key
+  become: yes
+  apt_key:
+    url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+    state: present
+
+- name: Add Jenkinks repository to Apt
+  become: yes
+  apt_repository:
+    repo: deb https://pkg.jenkins.io/debian-stable binary/
+    state: present
+    filename: jenkins
+
+- name: Install Jenkins
+  become: yes
+  apt:
+    name: jenkins
+    state: present
+
