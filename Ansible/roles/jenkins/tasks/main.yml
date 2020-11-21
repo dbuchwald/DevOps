@@ -44,3 +44,16 @@
     name: jenkins
     state: present
 
+- name: Open firewall to enable Jenkins access
+  become: yes
+  ufw:
+    rule: allow
+    port: '8080'
+
+- name: Skip initial setup wizard
+  become: yes
+  lineinfile:
+    dest=/etc/default/jenkins
+    regexp=^JENKINS_JAVA_OPTIONS=
+    line=JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"
+
