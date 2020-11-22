@@ -9,8 +9,15 @@
 
 - name: CI/CD worker node configuration
   hosts: cicd_workers
+  become: yes
+
+  vars:
+    jenkins_hostname: ubuntu-worker
+    java_packages: openjdk-8-jdk
 
   roles:
-   - jenkins
+   - geerlingguy.java
+   - geerlingguy.jenkins
+   - exposejenkins
 
 
